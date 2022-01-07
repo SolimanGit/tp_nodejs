@@ -56,14 +56,68 @@ function2(40,20).then((res) => console.log(res)).catch((err) => console.log(err)
 function3('15/04/1998').then((res) => console.log(res)).catch((err) => console.log(err))
 
 
-//EXO API
-axios.get('https://swapi.dev/api/people/1')
-.then((res)=> {
-    // console.log(res.data)
-    function1(res.data.name).then((res) => console.log(res)).catch((err) => console.log(err))
-    function2(parseInt(res.data.height),parseInt(res.data.mass)).then((res) => console.log(res)).catch((err) => console.log(err))
-    function3('15/04/1998').then((res) => console.log(res)).catch((err) => console.log(err))
-})
-.catch((err)=>{
-    console.log
-})
+// //EXO API
+// axios.get('https://swapi.dev/api/people/1')
+// .then((res)=> {
+//     // console.log(res.data)
+//     function1(res.data.name).then((res) => console.log(res)).catch((err) => console.log(err))
+//     function2(parseInt(res.data.height),parseInt(res.data.mass)).then((res) => console.log(res)).catch((err) => console.log(err))
+//     function3('15/04/1998').then((res) => console.log(res)).catch((err) => console.log(err))
+// })
+// .catch((err)=>{
+//     console.log
+// })
+
+async function getShip(id) {
+    try {
+       const response = await axios.get(`https://swapi.py4e.com/api/starships/${id}`);
+       console.log(response.data);
+    } catch (error) {
+       console.error(error);
+    }
+ }
+async function getPlanets() {
+    try {
+       const response = await axios.get(`https://swapi.py4e.com/api/planets`);
+       console.log(response.data.count);
+    } catch (error) {
+       console.error(error);
+    }
+ }
+async function getBirthYearVador() {
+    try {
+       const response = await axios.get(`https://swapi.py4e.com/api/people/?search=Darth%20Vader`);
+       console.log(response.data.birth_year);
+    } catch (error) {
+       console.error(error);
+    }
+ }
+async function getWookiePeople(id) {
+    try {
+       const response = await axios.get(`https://swapi.py4e.com/api/people/${id}/?format=wookiee`);
+       console.log(response.data);
+    } catch (error) {
+       console.error(error);
+    }
+ }
+
+ async function getResidentPlanetR2() {
+    try {
+        const response = await axios.get(`https://swapi.py4e.com/api/people/?search=r2`);
+        const response2 = await axios.get(response.data.results[0].homeworld)
+        // console.log(response2.data.residents)
+        response2.data.residents.forEach(element => {
+            console;log("URLS des résidents :")
+           console.log(element)
+       });
+    } catch (error) {
+       console.error(error);
+    }
+ }
+ 
+getShip(10)
+getPlanets()
+getBirthYearVador()
+getWookiePeople(13)
+
+getResidentPlanetR2()
